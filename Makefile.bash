@@ -1,4 +1,7 @@
-latex First_Measurement_of_Emittance_Reduction.tex
-latex First_Measurement_of_Emittance_Reduction.tex
+latex First_Measurement_of_Emittance_Reduction
+bibtex First_Measurement_of_Emittance_Reduction
+latex First_Measurement_of_Emittance_Reduction
+latex First_Measurement_of_Emittance_Reduction
+
 dvipdf First_Measurement_of_Emittance_Reduction.dvi
 

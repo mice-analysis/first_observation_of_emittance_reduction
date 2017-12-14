@@ -1,0 +1,27 @@
+========== cuts summary ============
+'all events:' 171016 'upstream cut:' 11079 'downstream cut:' 10638
+    'cut name'                us?      ds?      passed   'upstream passed and passed'
+    'aperture ds'             False    False    171016   11079   
+    'aperture us'             False    False    171016   11079   
+    'chi2 ds'                 False    True     54947    10725   
+    'chi2 us'                 True     True     66274    11079   
+    'delta tof01'             False    False    171016   11079   
+    'delta tof12'             False    False    171016   11079   
+    'p tot ds'                False    True     165594   10956   
+    'p tot us'                True     True     120881   11079   
+    'pvalue ds'               False    False    47963    9572    
+    'pvalue us'               False    False    57125    10124   
+    'scifi nan ds'            False    True     171016   11079   
+    'scifi nan us'            True     True     171016   11079   
+    'scifi space clusters'    False    False    3        1       
+    'scifi space points'      False    False    12443    2470    
+    'scifi track points ds'   False    False    56059    10841   
+    'scifi track points us'   False    False    68686    11079   
+    'scifi tracks ds'         False    True     55691    10840   
+    'scifi tracks us'         True     True     67309    11079   
+    'tof01'                   True     True     84926    11079   
+    'tof12'                   False    False    153033   11034   
+    'tof 0 sp'                True     True     135570   11079   
+    'tof 1 sp'                True     True     164936   11079   
+    'tof 2 sp'                False    False    49083    10208   
+

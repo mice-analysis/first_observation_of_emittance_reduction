@@ -1,60 +1,163 @@
 \section{Introduction}
 \label{Sect:Intro}
 
-\textbf{Author: Chris Rogers}
-
-\emph{Strategy - the aim of the paper is to show that MICE reduces normalised 
-emittance and this is consistent with MC. In order to demonstrate this, we 
-select 2016/04 1.2 and 2016/04 1.5 as the cooling channel settings to use (they 
-are likely to have best cooling and 1.5 also supports Ao's IPAC paper). The
-analysis is intended to be a `minimal' analysis, i.e. we get just enough to
-prove emittance reduction. We don't have to do all the fancy analyses yet, but 
-we do have to be correct and rigorous.}
-
 \subsection{Ionisation Cooling}
-Description of ionisation cooling and usual blah blah.
+
+Ionization cooling \cite{ionization_cooling} is the only known technique that 
+can cool a muon beam on a timescale competitive with the muon lifetime 
+\cite{neutrino_factory} \cite{neutrino_factory_2} \cite{muon_collider} 
+\cite{muon_collider_2}. Muon cooling has never been demonstrated previously. In 
+ionization cooling, a beam is passed through an absorber causing energy to be 
+lost due to ionization of atomic electrons. This yields a reduction in 
+normalized transverse emittance. Multiple Coulomb scattering from atoms causes 
+an increase in angular divergence of the beam, and hence emittance growth. The 
+change in normalized RMS emittance $\varepsilon_\perp$ in distance $dz$ is 
+\cite{ionization_cooling}
+\begin{equation}
+\frac{d\varepsilon_{\perp}}{dz} \approx 
+    - \frac{\varepsilon_\perp}{\beta^2 E_\mu} \left<\frac{dE}{dz}\right> 
+    + \frac{\beta_\perp (13.6\,\mathrm{MeV/c})^2}{2 \beta^3 E_\mu m_\mu X_0}
+\end{equation}
+where $\beta_\perp$ is the transverse optical Twiss function, $\beta c$, 
+$E_\mu$, $m_\mu$ are the particle velocity, energy and mass, and $X_0$ is the 
+radiation length. There exists an equilibrium RMS emittance $\varepsilon_{eqm}$
+\begin{equation}
+\varepsilon_{eqm} \approx \frac{1}{2m_\mu} \frac{13.6^2}{X_0} \frac{\beta_\perp}{\beta \left<dE/dz\right>}
+\label{eq:eqm_emittance}
+\end{equation}
+at which $d\varepsilon_{\perp}/dz = 0$. If a beam with emittance below 
+equilibrium is incident on an absorber, its emittance increases on passage 
+through the absorber. Otherwise the emittance decreases.
 
 \subsection{The Muon Ionisation Cooling Experiment}
-Description of the equipment (hardware perspective) i.e. detectors, magnets, etc.
 
-\subsection{Data Taken in 2016/04}
-During 2016/04, data was recorded for several settings.The cooling channel 
-magnet set currents and the beam optical parameters assuming the paraxial 
-approximation are listed in table \ref{tab:magnet_parameters}. This note 
-concerns analysis of two cooling channel settings `2016-04 1.2' and
-`2016-04 1.5'.
+\begin{figure*}[!tbh]
+    \includegraphics*[width=0.9\textwidth]{01-Introduction/Figures/Step-4-labels.pdf}
+    \caption{The MICE apparatus. \label{fig:Step4}}
+\end{figure*}
 
-Beam data was taken with the two settings with beam momentum 140 MeV/c and three
-emittance settings. Additionally, data was taken with 170, 200 and 240 MeV/c
-data in order to measure the magnetic alignment of the cooling channel.
+MICE Step IV  \cite{mice} \cite{mice_step_iv} consists of a transfer line to 
+bring particles from the ISIS synchrotron at Rutherford Appleton Laboratory to 
+the cooling experiment.  The cooling equipment consists of a section of a 
+solenoid focussing ionization cooling cell. Detectors, placed upstream and 
+downstream of the emittance reduction apparatus, measure the momentum, position 
+and species of particles entering and leaving the cooling channel, enabling the 
+measurement of change in normalized beam emittance of the ensemble.
+A schematic of the apparatus is shown in fig.\,\ref{fig:Step4}.
+
+\subsection{Transfer Line}
+Pions are created by dipping a titanium target into the ISIS proton synchrotron. 
+A dedicated transfer line has been constructed to transport the resultant 
+particles to the cooling apparatus \cite{beamline} \cite{pion_contamination} 
+\cite{characterization}.  The incoming particle momentum can be selected by 
+varying the field in a pair of dipoles. Higher magnetic field selects higher 
+particle momentum. A series of tungsten and brass irises are positioned in the 
+transfer line, enabling the selection of different emittances for the ensemble.
+
+Up to around 100 particles are observed per second. MICE accumulates data in 
+runs, each run consisting of a single experimental configuration and lasting of 
+order hours. Several runs are taken for each solenoid configuration.  MICE has 
+taken data over thousands of runs, with many different configurations.
+
+\begin{figure}[!tbh]
+    \centering
+    \includegraphics*[width=0.8\textwidth]{01-Introduction/Figures/bfield_vs_z.eps}
+    \caption{Modelled magnetic field for the configuration on the axis and with 
+    160 mm horizontal displacement from the axis. Hall probes, situated 160 mm from 
+    the beam axis, show a 2 $\%$ discrepancy with the model. Dashed lines show 
+    position of the tracker stations and absorber. \label{fig:field}}
+\end{figure}
+
+\subsection{Cooling Channel}
+The cooling channel consists of three superconducting solenoid modules \cite{SS} 
+\cite{FC}. Two spectrometer solenoid modules each generate a region of uniform 
+field in which diagnostic trackers are situated and a matching region that 
+transports the beam from the solenoid to the focus coil module. The focus coil 
+module, positioned between the solenoids, provides additional focussing to 
+increase the angular divergence of the beam at the absorber, improving the 
+amount of emittance reduction that can be achieved.
+
+The absorber was a 21 litre vessel. When filled, the absorber presents 350 mm 
+of liquid Hydrogen along the experimental axis. Liquid hydrogen was chosen as an 
+absorber material as it provides less multiple Coulomb  scattering for a given 
+energy loss, due to the smaller electric charge of the nucleus. Containment of
+the Hydrogen was provided by a pair of thin Aluminium windows. An additional
+pair of windows provided secondary containment in case of failure of the primary
+containment windows.
+
+\subsection{Diagnostic Apparatus}
+Upstream of the cooling apparatus, two time-of-flight detectors (TOFs) 
+\cite{tof} \cite{tof2} enable the measurement of particle velocity, which is 
+validated by a threshold Cerenkov counter \cite{ckov}. Scintillating fibre 
+trackers, positioned either side of the absorber module, enable the measurement 
+of particle position and momentum upstream and downstream of the absorber. 
+Further downstream an additional TOF detector, a KLOE Light pre-shower detector 
+and Electron Muon Ranger enable rejection of electron impurities.
+
+The trackers consist of 5 stations \cite{tracker_hardware} 
+\cite{tracker_software}. Each station consists of 3 views, each view rotated by 
+120$^\circ$ with respect to the previous view. Each view consists of 2 layers of 
+scintillating fibres. Gangs of 7 scintillating fibres are read out together by 
+cryogenically operated Visible Light Photon Counters, enabling the position of 
+incident particles to be measured with a resolution of 0.3 to 0.4\,mm. The 
+trackers are situated in uniform 3\,T fields such that particles make a helical 
+path. The magnitude of the field is measured using Hall probes situated in the 
+region of the tracker. By measuring the radius and pitch of the helix, the 
+momentum of the particle can be deduced. The trackers have sufficient redundancy 
+to enable the track reconstruction to be internally validated in order to 
+estimate the efficacy of the reconstruction. The uncertainty on the momentum of 
+each track is around 1-2\,MeV/c.
+
+Each TOF consists of two planes. Each TOF plane is made up of a number of 
+scintillator slabs. Photomultiplier tubes at either end of the TOF slabs produce 
+a signal when particles pass through the TOF. The time at which muons pass 
+through the apparatus can be measured with a resolution of 60\,ps.
+
+\subsection{Operation of the Equipment}
+In this paper the evolution of phase space density is reported for a single 
+configuration of the cooling magnets,  `2017-02 7'. The 
+cooling channel magnet set currents and the beam optical parameters assuming no
+beta-beating in the upstream spectrometer solenoid are listed in table 
+\ref{tab:magnet_parameters}. A  model of the magnetic field in this 
+configuration is shown in fig. \ref{fig:field}.
+
+The transfer line settings were varied 
+to mimic different beam conditions. Results from four transfer line 
+configurations are reported, with the accumulated muon sample having nominal 
+emittances of 3 mm, 4 mm, 6 mm  and 10 mm at momenta around 140 MeV/c in the 
+upstream spectrometer solenoid. These configurations are denoted 
+`3-140', `4-140', `6-140' and `10-140' respectively.
 
 \begin{table}
 \centering
-\caption{Magnet parameters for 2016/04. Trim power supplies on SSU and SSD were
-not operational. Focus coils were powered in solenoid mode. Match coils on SSD
-were not powered.
+\caption{Magnet parameters and other information for 2017-02 7. The cooling channel was powered in 
+flip mode, meaning that SSU and the upstream coil in FC had positive polarity 
+while the downstream coil in FC and SSD had negative polarity.
 \label{tab:magnet_parameters}}
 
-\begin{tabular}{|l|ccccc|}
-
+\begin{tabular}{|l|c|}
 \hline
-Setting                       & 2016/04 1.3 & 2016/04 1.2 & 2016/04 1.5 & 2016/04 2.3 & 2016/04 2.4 \\
+Setting                       & 2017-02 7    \\
 \hline
-Start time                    & 18/11 20:00 & 28/11 16:50 & 05/12 13:20 & 08/12 16:30 & 12/12 14:20 \\
-End time                      & 23/11 14:10 & 05/12 11:00 & 08/12 14:10 & 12/12 11:20 & 14/12 03:20 \\
-Nominal FC $\beta_\perp$ [mm] & & & & & \\
-Nominal momentum [MeV/c]      & 140         & 140         & 140         & 200         & 240         \\
+Full absorber runs            & 9946 to 9972 \\
+Full Start time               & 12/10/2017 11:59  \\
+Full End time                 & 14/10/2017 12:20  \\
+Empty absorber runs           & 10014 to 10077 \\
+Empty Start time              & 18/10/2017 14:34  \\
+Empty End time                & 23/10/2017 09:28  \\
+Nominal FC $\beta_\perp$ [mm] & \textcolor{red}{WHAT BETA FUNCTION?}  \\
+Nominal momentum [MeV/c]      & 140          \\
 \hline
-SSU Center Coil [A]           & 205.5       & 205.86      & 208.0       & 208.0       & 208.0       \\
-SSU Match Coil2 [A]           & 208.6       & 171.9       & 187.4       & 172.9       & 193.1       \\
-SSU Match Coil1 [A]           & 102.3       & 211.7       & 178.1       & 239.2       & 177.7       \\
+SSU Center Coil [A]           & 205.7        \\
+SSU Match Coil2 [A]           & 168.25       \\
+SSU Match Coil1 [A]           & 191.0        \\
 \hline
-FC Coil [A]                   & 41.5        & 57.9        & 55.2        & 56.2        & 78.8       \\
+FC Coil [A]                   & 129.24       \\
 \hline
-SSD Center Coil [A]           & 205.5       & 205.86      & 208.0       & 208.0       & 208.0       \\
+SSU Match Coil2 [A]           & 195.72       \\
+SSD Center Coil [A]           & 144.0        \\
 \hline
-\end{tabular} 
-
+\end{tabular}
 \end{table}
 
 

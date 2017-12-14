@@ -1,18 +1,162 @@
-\section{Cuts}
+\section{Sample Selection}
 \label{Sect:Cuts-1}
 
-\textbf{Author: Chris Rogers}
+\subsection{Particle events}
+The MICE data acquisition system was set to trigger if TOF1 received 
+simultaneous hits in a given slab. The trigger enables readout of the 
+diagnostics during a short trigger window. All data acquired during this period 
+is associated together and known as a particle event. 
 
-Here we describe how we selected a sample of events. E.g. PID cuts, momentum
-cuts, various good event cuts.
+Signals in the same detector are associated into space points, for signals that 
+are consistent with a particle passing through a given spatial region, and 
+tracks, for signals that are consistent with a particle with a given momentum 
+passing through a number of space points. The full reconstruction chain is
+described in \cite{maus_paper}.
 
-Nb: We have to discuss the cuts first because we need to exclude non-muon events
-from the plots, especially data quality type plots. Somehow there is a logical 
-challenge because we need to explain the cuts before we have proved that the 
-detectors (etc) work, so we have to invite the reader to believe that our 
-detectors work and prove it in the next section...
+\subsection{Sample Selection}
+Particle events are selected for analysis according to a number of different
+criteria. Two samples are considered: the upstream sample is selected based on 
+criteria in the upstream detector system only; the downstream sample is 
+selected from the upstream sample, based on additional criteria in the 
+downstream detector system. Because the upstream sample is selected based on
+measurements in the upstream detector system, the upstream sample is 
+independent of any stochastic processes occurring in the absorber.
 
-May decide to go "lite" here, push this into section 01 and push more into section 05.
+The sample selection criteria are detailed in Table \ref{tab:sample_selection}
+together with the number of events surviving each cut. The criteria are
+described in detail below.
 
+\subsection{Upstream Sample}
+Cuts applied to the upstream sample are described below.
 
+\begin{itemize}
+\item{One TKU Track:} Events have exactly one track reconstructed in TKU.
+\item{One TOF0 Space Point:} Events have exactly one space point reconstructed in
+TOF0.
+\item{One TOF1 Space Point:} Events have exactly one space point reconstructed in
+TOF1.
+\item{TKU Momentum:} Events are required to have momentum reconstructed by TKU 
+between 135 and 145 MeV/c. The momentum of events in each sample is shown in 
+fig. \ref{fig:tku_mom}.
+\textcolor{red}{Discuss low momentum bulge?}
+\item{TOF01 Time:} Pions and electrons in the momentum selection described above
+have a quite different time-of-flight between TOF0 and TOF1 to muons. Events are 
+required to have time-of-flight between TOF0 and TOF1 consistent with a muon in
+order to reject this background. The time-of-flight of events in each sample is 
+shown in fig. \ref{fig:tof01}. The velocity of particles upstream of the diffuser
+is faster for thicker diffuser settings, in order to yield a muon sample with
+momentum peaked around 140 MeV/c in TKU. In order to correctly reject impurities,
+the TOF01 cut is different for different beamline settings, as listed in table 
+\ref{tab:tof01_cut}
+\item{TKU $\chi^2$ per degree of freedom:} The reconstructed $\chi^2$ per degree of freedom in TKU is 
+required to be less than 10. The $\chi^2$ per degree of freedom of events in 
+each sample is shown in fig. \ref{fig:tku_chi2}.
+\end{itemize}
 
+\begin{table}
+\caption{Upper and lower bound of TOF cuts for different beamline settings.
+\label{tab:tof01_cut}}
+\centering
+\begin{tabular}[pos]{l|rr}
+Beamline & Lower       & Upper \\
+         & Bound [ns]  & Bound [ns] \\
+\hline
+3-140    & 27.0          & 32.0 \\
+6-140    & 27.0          & 31.0 \\
+10-140   & 27.0          & 30.0 \\
+\end{tabular}
+\end{table}
+
+\begin{figure}[!tbh]
+    \centering
+    \includegraphics*[width=0.45\textwidth]{analysis_plots/plots_3-140-full/tku_p.eps}
+    \includegraphics*[width=0.45\textwidth]{analysis_plots/plots_3-140-empty/tku_p.eps}
+    \includegraphics*[width=0.45\textwidth]{analysis_plots/plots_6-140-full/tku_p.eps}
+    \includegraphics*[width=0.45\textwidth]{analysis_plots/plots_6-140-empty/tku_p.eps}
+    \includegraphics*[width=0.45\textwidth]{analysis_plots/plots_10-140-full/tku_p.eps}
+    \includegraphics*[width=0.45\textwidth]{analysis_plots/plots_10-140-empty/tku_p.eps}
+    \caption{Momentum measured by TKU for 3-140 beam (top), 6-140 beam (middle) and 10-140 beam (bottom).
+    The left hand column shows data with full absorber; the right hand column shows data with empty absorber.
+    The black line shows all events; red shows events in the upstream sample; green shows events in the downstream sample.
+\label{fig:tku_mom}}
+\end{figure}
+
+\begin{figure}[!tbh]
+    \centering
+    \includegraphics*[width=0.45\textwidth]{analysis_plots/plots_3-140-full/tof01.eps}
+    \includegraphics*[width=0.45\textwidth]{analysis_plots/plots_3-140-empty/tof01.eps}
+    \includegraphics*[width=0.45\textwidth]{analysis_plots/plots_6-140-full/tof01.eps}
+    \includegraphics*[width=0.45\textwidth]{analysis_plots/plots_6-140-empty/tof01.eps}
+    \includegraphics*[width=0.45\textwidth]{analysis_plots/plots_10-140-full/tof01.eps}
+    \includegraphics*[width=0.45\textwidth]{analysis_plots/plots_10-140-empty/tof01.eps}
+    \caption{Time-of-flight measured between TOF0 and TOF1 for 3-140 beam (top), 6-140 beam (middle) and 10-140 beam (bottom).
+    The left hand column shows data with full absorber; the right hand column shows data with empty absorber.
+    The black line shows all events; red shows events in the upstream sample; green shows events in the downstream sample.
+\label{fig:tof01}}
+\end{figure}
+
+\begin{figure}[!tbh]
+    \centering
+    \includegraphics*[width=0.45\textwidth]{analysis_plots/plots_3-140-full/chi2_tku.eps}
+    \includegraphics*[width=0.45\textwidth]{analysis_plots/plots_3-140-empty/chi2_tku.eps}
+    \includegraphics*[width=0.45\textwidth]{analysis_plots/plots_6-140-full/chi2_tku.eps}
+    \includegraphics*[width=0.45\textwidth]{analysis_plots/plots_6-140-empty/chi2_tku.eps}
+    \includegraphics*[width=0.45\textwidth]{analysis_plots/plots_10-140-full/chi2_tku.eps}
+    \includegraphics*[width=0.45\textwidth]{analysis_plots/plots_10-140-empty/chi2_tku.eps}
+    \caption{$\chi^2$ distribution in TKU for 3-140 beam (top), 6-140 beam (middle) and 10-140 beam (bottom).
+    The left hand column shows data with full absorber; the right hand column shows data with empty absorber.
+    The black line shows all events; red shows events in the upstream sample; green shows events in the downstream sample.
+    \label{fig:tku_chi2}}
+\end{figure}
+
+Events which do not meet these criteria are not considered for analysis at all.
+
+\subsection{Downstream Sample}
+Cuts applied to the downstream sample are described below.
+
+\begin{itemize}
+\item{In Upstream Sample:} Events are required to be in the upstream sample to
+be considered in the downstream sample.
+\item{One TKD Track:} Events have exactly one track reconstructed in TKD.
+\item{TKD Momentum:} Events are required to have reconstructed momentum between 
+100 and 200  MeV/c. The momentum as reconstructed by TKD of events in each 
+sample is shown in fig. \ref{fig:tkd_mom}
+\item{TKD $\chi^2$ per degree of freedom:} The reconstructed $\chi^2$ per degree of freedom in TKD is 
+required to be less than 10. The $\chi^2$ per degree of freedom of events in 
+each sample in TKD is shown in fig. \ref{fig:tku_chi2}.
+\end{itemize}
+
+\begin{figure}[!tbh]
+    \centering
+    \includegraphics*[width=0.45\textwidth]{analysis_plots/plots_3-140-full/tkd_p.eps}
+    \includegraphics*[width=0.45\textwidth]{analysis_plots/plots_3-140-empty/tkd_p.eps}
+    \includegraphics*[width=0.45\textwidth]{analysis_plots/plots_6-140-full/tkd_p.eps}
+    \includegraphics*[width=0.45\textwidth]{analysis_plots/plots_6-140-empty/tkd_p.eps}
+    \includegraphics*[width=0.45\textwidth]{analysis_plots/plots_10-140-full/tkd_p.eps}
+    \includegraphics*[width=0.45\textwidth]{analysis_plots/plots_10-140-empty/tkd_p.eps}
+    \caption{TKD momentum for 3-140 beam (top), 6-140 beam (middle) and 10-140 beam (bottom).
+    The left hand column shows data with full absorber; the right hand column shows data with empty absorber.
+    The black line shows all events; red shows events in the upstream sample; green shows events in the downstream sample.
+\label{fig:tkd_mom}}
+\end{figure}
+
+\begin{figure}[!tbh]
+    \centering
+    \includegraphics*[width=0.45\textwidth]{analysis_plots/plots_3-140-full/chi2_tkd.eps}
+    \includegraphics*[width=0.45\textwidth]{analysis_plots/plots_3-140-empty/chi2_tkd.eps}
+    \includegraphics*[width=0.45\textwidth]{analysis_plots/plots_6-140-full/chi2_tkd.eps}
+    \includegraphics*[width=0.45\textwidth]{analysis_plots/plots_6-140-empty/chi2_tkd.eps}
+    \includegraphics*[width=0.45\textwidth]{analysis_plots/plots_10-140-full/chi2_tkd.eps}
+    \includegraphics*[width=0.45\textwidth]{analysis_plots/plots_10-140-empty/chi2_tkd.eps}
+    \caption{$\chi^2$ distribution in TKD for for 3-140 beam (top), 6-140 beam (middle) and 10-140 beam (bottom).
+    The left hand column shows data with full absorber; the right hand column shows data with empty absorber.
+    The black line shows all events; red shows events in the upstream sample; green shows events in the downstream sample.
+\label{fig:tkd_chi2}}
+\end{figure}
+
+Events which do not meet these downstream sample criteria are not considered
+for analysis. They may either have collided with the cooling channel aperture 
+and been lost (scraping), or 
+they may have been not observed by the detectors (inefficiency). Systematic 
+correction and uncertainty due to detector inefficiency is discussed in Section 
+\cite{sec:inefficiency}.

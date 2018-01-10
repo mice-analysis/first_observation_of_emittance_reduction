@@ -8,15 +8,76 @@ reconstructed events between detectors.
 
 \subsection{Tracker}
 
-\textbf{Author: Chris Hunt}
+\textcolor{red}{References}
 
-Description of tracker and reconstruction (few words but mostly citation).
+Two trackers, made up of five stations each with three planes of scintillating
+fibres are used to reconstruct the momentum of incoming particles. Particles 
+make helical trajectories whose radius and wavelength vary according to the
+transverse and longitudinal momentum respectively. The radius of the helix is
+given approximately by
+\begin{equation}
+\label{eq:scifi_helix_radius}
+r = \frac{p_t}{q B_z}
+\end{equation}
+and the wavenumber by
+\begin{equation}
+\label{eq:scifi_helix_wavenumber}
+k = \frac{q B_z}{p_z}.
+\end{equation}
 
-Proof that the field is understood within tracker region - Hall probes.
+Fitting is performed in several steps. Electronics signals arising from adjacent
+fibres are collected into clusters. The position of clusters in adjacent planes 
+are collected to form a space point. A first-pass fit of a perfect helix to the 
+space points is  used for noise rejection and to seed a second-pass fit using a 
+Kalman filter.
 
-Proof that the resolution is understood - Kalman pulls and chi2. 
+If the reconstruction is well-understood, the path of the reconstructed 
+trajectory should match the position of the clusters. The $\chi^2$ distribution
+of reconstructed tracks is shown in fig. \ref{fig:chi2}.
 
-Proof that the efficiency is understood (and good); probably something like 
+\textcolor{red}{Add chi2 fit; add comment indicating chi2 fit is consistent.}
+
+\begin{figure}[!tbh]
+    \centering
+    \includegraphics*[width=0.45\textwidth]{03-Detectors/Figures/HallProbes/hp_65.eps}
+    \includegraphics*[width=0.45\textwidth]{03-Detectors/Figures/HallProbes/hp_67.eps}
+    \includegraphics*[width=0.45\textwidth]{03-Detectors/Figures/HallProbes/hp_77.eps}
+    \includegraphics*[width=0.45\textwidth]{03-Detectors/Figures/HallProbes/hp_79.eps}
+    \includegraphics*[width=0.45\textwidth]{03-Detectors/Figures/HallProbes/hp_66.eps}
+    \includegraphics*[width=0.45\textwidth]{03-Detectors/Figures/HallProbes/hp_72.eps}
+    \caption{Hall probe readings for the two datasets across the entire period where data was taken.}
+\label{fig:hall_probes}
+\end{figure}
+
+In order to accurately reconstruct tracks the field must be well known. If the
+modelled field used in reconstruction differs from the actual field, a helix
+can be found but the longitudinal and transverse momenta will scale according to
+eq. (\ref{eq:scifi_helix_radius}) and eq. (\ref{eq:scifi_helix_wavenumber}). In 
+order to accurately reconstruct the field correctly it is essential to 
+understand the measured field accurately.
+
+\begin{figure}[!tbh]
+    \centering
+    \includegraphics*[width=0.45\textwidth]{03-Detectors/Figures/HallProbes/bfield_vs_z_ssu.eps}
+    \includegraphics*[width=0.45\textwidth]{03-Detectors/Figures/HallProbes/bfield_vs_z_ssd.eps}
+    \caption{Hall probe readings compared to the field model used for 
+             reconstruction and track extrapolation. Blue dashed lines show the
+             position of the tracker stations.}
+\label{fig:field_map}
+\end{figure}
+
+
+The field in the tracker region was monitored during the data taking period by
+several Hall probes. The Hall probe measurement in the tracker region is shown
+in fig. \ref{fig:hall_probes} for several run periods, including the data taking
+periods under study in this paper. Reproducibility is demonstrated at better than
+$10^{-3}$ T level.
+
+The measured fields are shown overlayed with the modelled field in the tracker 
+region in fig. \ref{fig:field_map}. There is some disagreement between the model
+and the hall probe readings, particularly in the fringe field of the magnets.
+
+\textcolor{red}{Proof that the efficiency is understood (and good);} probably something like 
 number of 5 point, 4 point tracks and demonstration that this is consistent with
 expected noise/dead channels? Look at straight tracks data?
 
@@ -28,11 +89,6 @@ Proof that the resolution is understood - e.g. plane 0 vs plane 1 for each TOF s
 
 Proof that the efficiency is understood - e.g. number of plane 0 hits vs number 
 of plane 1 hits for each TOF station.
-
-\section{Other detectors}
-
-Do we want to pull the other detectors in?
-
 
 \section{Global reconstruction}
 

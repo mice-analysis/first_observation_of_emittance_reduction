@@ -33,19 +33,19 @@ Kalman filter.
 
 If the reconstruction is well-understood, the path of the reconstructed 
 trajectory should match the position of the clusters. The $\chi^2$ distribution
-of reconstructed tracks is shown in fig. \ref{fig:chi2}.
-
-\textcolor{red}{Add chi2 fit; add comment indicating chi2 fit is consistent.}
+per degree of freedom of reconstructed tracks was shown in fig. 
+\ref{fig:tku_chi2}} and \ref{fig:tkd_chi2}} for the upstream and downstream
+detectors respectively.
 
 \begin{figure}[!tbh]
     \centering
-    \includegraphics*[width=0.45\textwidth]{03-Detectors/Figures/HallProbes/hp_65.eps}
-    \includegraphics*[width=0.45\textwidth]{03-Detectors/Figures/HallProbes/hp_67.eps}
-    \includegraphics*[width=0.45\textwidth]{03-Detectors/Figures/HallProbes/hp_77.eps}
-    \includegraphics*[width=0.45\textwidth]{03-Detectors/Figures/HallProbes/hp_79.eps}
-    \includegraphics*[width=0.45\textwidth]{03-Detectors/Figures/HallProbes/hp_66.eps}
-    \includegraphics*[width=0.45\textwidth]{03-Detectors/Figures/HallProbes/hp_72.eps}
-    \caption{Hall probe readings for the two datasets across the entire period where data was taken.}
+    \includegraphics*[width=0.45\textwidth]{03-Detectors/Figures/hall-probes_2017-02-7/hp_65.pdf}
+    \includegraphics*[width=0.45\textwidth]{03-Detectors/Figures/hall-probes_2017-02-7/hp_77.pdf}
+    \includegraphics*[width=0.45\textwidth]{03-Detectors/Figures/hall-probes_2017-02-7/hp_79.pdf}
+    \includegraphics*[width=0.45\textwidth]{03-Detectors/Figures/hall-probes_2017-02-7/hp_67.pdf}
+    \includegraphics*[width=0.45\textwidth]{03-Detectors/Figures/hall-probes_2017-02-7/hp_66.pdf}
+    \includegraphics*[width=0.45\textwidth]{03-Detectors/Figures/hall-probes_2017-02-7/hp_72.pdf}
+    \caption{Hall probe readings for the four datasets across the entire period where data was taken.}
 \label{fig:hall_probes}
 \end{figure}
 
@@ -66,12 +66,11 @@ understand the measured field accurately.
 \label{fig:field_map}
 \end{figure}
 
-
 The field in the tracker region was monitored during the data taking period by
 several Hall probes. The Hall probe measurement in the tracker region is shown
-in fig. \ref{fig:hall_probes} for several run periods, including the data taking
-periods under study in this paper. Reproducibility is demonstrated at better than
-$10^{-3}$ T level.
+in fig. \ref{fig:hall_probes} for the data taking
+periods under study in this paper. Reproducibility is demonstrated at around the
+$10^{-3}$ T level for HP67 and around $10^{-4}$ T level for the other hall probes.
 
 The measured fields are shown overlayed with the modelled field in the tracker 
 region in fig. \ref{fig:field_map}. There is some disagreement between the model
@@ -83,13 +82,21 @@ expected noise/dead channels? Look at straight tracks data?
 
 \subsection{TOF}
 
+\begin{figure}[!tbh]
+    \centering
+    %\includegraphics*[width=0.45\textwidth]{03-Detectors/Figures/tof0_resolution.eps}
+    %\includegraphics*[width=0.45\textwidth]{03-Detectors/Figures/tof1_resolution.eps}
+    %\includegraphics*[width=0.45\textwidth]{03-Detectors/Figures/tof2_resolution.eps}
+    \caption{Estimated TOF resolution.}
+\label{fig:tof_resolution}
+\end{figure}
+
 Description of the TOFs and reconstruction (few words but mostly citation).
 
 Proof that the resolution is understood - e.g. plane 0 vs plane 1 for each TOF station.
 
-Proof that the efficiency is understood - e.g. number of plane 0 hits vs number 
-of plane 1 hits for each TOF station.
-
 \section{Global reconstruction}
+
+The overall detector performance can be validated by considering the sample of events
 
 

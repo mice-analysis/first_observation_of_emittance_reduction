@@ -1,0 +1,51 @@
+
+\newcommand{\splitcell}[2][c]{%
+    \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+
+\begin{landscape}
+\begin{table}
+\centering
+\caption{Simulated sample selection}
+\begin{tabular}[pos]{l|cccccc}
+cut                   & \splitcell{\\Simulated\\2017-2.7\\3-140\\lH2\\empty\\} & \splitcell{\\Simulated\\2017-2.7\\3-140\\lH2\\full\\} & \splitcell{\\Simulated\\2017-2.7\\6-140\\lH2\\empty\\} & \splitcell{\\Simulated\\2017-2.7\\6-140\\lH2\\full\\} & \splitcell{\\Simulated\\2017-2.7\\10-140\\lH2\\empty\\} & \splitcell{\\Simulated\\2017-2.7\\10-140\\lH2\\full\\} \\
+\hline
+all events            &  161146  &  159311  &  221060  &  220013  &  302986  &  297133  \\
+\hline
+tof 1 sp              &  150747  &  149085  &  210589  &  209710  &  289353  &  284199  \\
+tof 0 sp              &  146514  &  145016  &  204901  &  203924  &  282745  &  277675  \\
+scifi tracks us       &  62261  &  62102  &  136180  &  139393  &  142549  &  140019  \\
+scifi nan us          &  62261  &  62102  &  136180  &  139393  &  142549  &  140019  \\
+chi2 us               &  58681  &  58491  &  115842  &  117796  &  134877  &  132292  \\
+scifi fiducial us     &  58210  &  58013  &  115469  &  117409  &  132780  &  130146  \\
+\hline
+delta tof01           &  35180  &  38589  &  55913  &  66415  &  84520  &  92749  \\
+tof01                 &  32138  &  32336  &  43353  &  45705  &  58097  &  60730  \\
+p tot us              &  9862  &  9838  &  14956  &  14319  &  12137  &  12774  \\
+\hline
+global through tku tp  &  9598  &  9439  &  14764  &  13965  &  10308  &  9136  \\
+global through tof1   &  9598  &  9439  &  14764  &  13965  &  10308  &  9136  \\
+global through tof0   &  9598  &  9439  &  14764  &  13965  &  10308  &  9136  \\
+upstream aperture cut  &  8963  &  8946  &  14400  &  13640  &  6701  &  6689  \\
+\hline
+upstream cut          &  8963  &  8946  &  14400  &  13640  &  6701  &  6689  \\
+\hline
+scifi tracks ds       &  8854  &  8760  &  13796  &  13044  &  6091  &  6053  \\
+scifi nan ds          &  8854  &  8760  &  13796  &  13044  &  6091  &  6053  \\
+chi2 ds               &  8778  &  8631  &  13690  &  12921  &  6053  &  5995  \\
+scifi fiducial ds     &  8778  &  8631  &  13690  &  12921  &  6053  &  5995  \\
+p tot ds              &  8694  &  8512  &  13534  &  12744  &  5966  &  5861  \\
+\hline
+downstream cut        &  8694  &  8512  &  13534  &  12744  &  5966  &  5861  \\
+\hline
+downstream aperture cut  &  5086  &  5211  &  8045  &  7439  &  2668  &  2481  \\
+tof2 sp               &  5086  &  5211  &  8045  &  7439  &  2668  &  2481  \\
+global through tkd tp  &  5086  &  5211  &  8045  &  7439  &  2668  &  2481  \\
+global through tof2   &  5017  &  5044  &  7912  &  7238  &  2617  &  2416  \\
+\hline
+extrapolation cut     &  5017  &  5044  &  7912  &  7238  &  2617  &  2416  \\
+\hline
+
+\end{tabular}
+\end{table}
+\end{landscape}
+

@@ -14,6 +14,7 @@ an increase in angular divergence of the beam, and hence emittance growth. The
 change in normalized RMS emittance $\varepsilon_\perp$ in distance $dz$ is 
 \cite{ionization_cooling}
 \begin{equation}
+\label{eq:depsdz}
 \frac{d\varepsilon_{\perp}}{dz} \approx 
     - \frac{\varepsilon_\perp}{\beta^2 E_\mu} \left<\frac{dE}{dz}\right> 
     + \frac{\beta_\perp (13.6\,\mathrm{MeV/c})^2}{2 \beta^3 E_\mu m_\mu X_0}
@@ -27,7 +28,9 @@ radiation length. There exists an equilibrium RMS emittance $\varepsilon_{eqm}$
 \end{equation}
 at which $d\varepsilon_{\perp}/dz = 0$. If a beam with emittance below 
 equilibrium is incident on an absorber, its emittance increases on passage 
-through the absorber. Otherwise the emittance decreases.
+through the absorber. Otherwise the emittance decreases. The Muon Ionisation
+Cooling Experiment (MICE) collaboration seek to demonstrate ionization cooling 
+for the first time.
 
 \subsection{The Muon Ionisation Cooling Experiment}
 
@@ -45,9 +48,10 @@ and species of particles entering and leaving the cooling channel, enabling the
 measurement of change in normalized beam emittance of the ensemble.
 A schematic of the apparatus is shown in fig.\,\ref{fig:Step4}.
 
-\subsection{Transfer Line}
+\subsection{MICE Muon Beam line}
 Pions are created by dipping a titanium target into the ISIS proton synchrotron. 
-A dedicated transfer line has been constructed to transport the resultant 
+The MICE Muon Beam line is a  transfer line that has been constructed to 
+transport the resultant 
 particles to the cooling apparatus \cite{beamline} \cite{pion_contamination} 
 \cite{characterization}.  The incoming particle momentum can be selected by 
 varying the field in a pair of dipoles. Higher magnetic field selects higher 
@@ -61,37 +65,48 @@ taken data over thousands of runs, with many different configurations.
 
 \begin{figure}[!tbh]
     \centering
-    \includegraphics*[width=0.8\textwidth]{01-Introduction/Figures/bfield_vs_z.eps}
+    \includegraphics*[width=0.8\textwidth]{03-Detectors/Figures/field_2017-02-7/bfield_vs_z}
     \caption{Modelled magnetic field for the configuration on the axis and with 
-    160 mm horizontal displacement from the axis. Hall probes, situated 160 mm from 
-    the beam axis, show a 2 $\%$ discrepancy with the model. Dashed lines show 
-    position of the tracker stations and absorber. \label{fig:field}}
+    160 mm horizontal displacement from the axis. The readings from Hall probes, 
+    situated 160 mm from the beam axis, are shown. Dashed lines indicate 
+    position of the tracker stations and absorber. A cusp near to the absorber
+    position corresponds to the position of a flip in the field polarity from
+    positive to negative. \label{fig:field}}
 \end{figure}
 
 \subsection{Cooling Channel}
 The cooling channel consists of three superconducting solenoid modules \cite{SS} 
-\cite{FC}. Two spectrometer solenoid modules each generate a region of uniform 
+\cite{FC}. Spectrometer solenoid modules at the upstream and downstream end of 
+the channel (SSU and SSD respectively) each generate a region of uniform 
 field in which diagnostic trackers are situated and a matching region that 
-transports the beam from the solenoid to the focus coil module. The focus coil 
+transports the beam from the solenoid to the focus coil module (FC). The focus coil 
 module, positioned between the solenoids, provides additional focussing to 
 increase the angular divergence of the beam at the absorber, improving the 
 amount of emittance reduction that can be achieved.
 
-The absorber was a 21 litre vessel. When filled, the absorber presents 350 mm 
+The effect of two absorbers are studied in this note, placed in the centre of 
+the FC. The liquid hydrogen absorber is a 21 litre vessel. When filled, 
+the absorber presents 350 mm 
 of liquid Hydrogen along the experimental axis. Liquid hydrogen was chosen as an 
 absorber material as it provides less multiple Coulomb  scattering for a given 
-energy loss, due to the smaller electric charge of the nucleus. Containment of
-the Hydrogen was provided by a pair of thin Aluminium windows. An additional
+energy loss. Containment of
+the Hydrogen is provided by a pair of thin Aluminium windows. An additional
 pair of windows provided secondary containment in case of failure of the primary
 containment windows.
 
+The lithium hydride absorber is a 65 mm thick cylinder. The cylinder had a thin
+coating of parylene to prevent ingress of water or oxygen. Configurations with 
+no absorber installed at all and with just the liquid hydrogen containment 
+vessel are also studied in this note.
+
 \subsection{Diagnostic Apparatus}
-Upstream of the cooling apparatus, two time-of-flight detectors (TOFs) 
-\cite{tof} \cite{tof2} enable the measurement of particle velocity, which is 
-validated by a threshold Cerenkov counter \cite{ckov}. Scintillating fibre 
-trackers, positioned either side of the absorber module, enable the measurement 
+Upstream of the cooling apparatus, two time-of-flight detectors (ToFs) 
+\cite{tof} \cite{tof2} enable the measurement of particle velocity. A 
+complementary velocity measurement is made by a threshold Cerenkov counter 
+\cite{ckov}. Scintillating fibre 
+trackers, positioned either side of the absorber module (TKU and TKD respectively), enable the measurement 
 of particle position and momentum upstream and downstream of the absorber. 
-Further downstream an additional TOF detector, a KLOE Light pre-shower detector 
+Further downstream an additional ToF detector, a KLOE Light pre-shower detector 
 and Electron Muon Ranger enable rejection of electron impurities.
 
 The trackers consist of 5 stations \cite{tracker_hardware} 
@@ -99,18 +114,17 @@ The trackers consist of 5 stations \cite{tracker_hardware}
 120$^\circ$ with respect to the previous view. Each view consists of 2 layers of 
 scintillating fibres. Gangs of 7 scintillating fibres are read out together by 
 cryogenically operated Visible Light Photon Counters, enabling the position of 
-incident particles to be measured with a resolution of 0.3 to 0.4\,mm. The 
-trackers are situated in uniform 3\,T fields such that particles make a helical 
+incident particles to be measured. The 
+trackers are situated in uniform fields such that particles make a helical 
 path. The magnitude of the field is measured using Hall probes situated in the 
 region of the tracker. By measuring the radius and pitch of the helix, the 
 momentum of the particle can be deduced. The trackers have sufficient redundancy 
 to enable the track reconstruction to be internally validated in order to 
-estimate the efficacy of the reconstruction. The uncertainty on the momentum of 
-each track is around 1-2\,MeV/c.
+estimate the efficacy of the reconstruction.
 
-Each TOF consists of two planes. Each TOF plane is made up of a number of 
-scintillator slabs. Photomultiplier tubes at either end of the TOF slabs produce 
-a signal when particles pass through the TOF. The time at which muons pass 
+Each ToF consists of two planes. Each ToF plane is made up of a number of 
+scintillator slabs. Photomultiplier tubes at either end of the ToF slabs produce 
+a signal when particles pass through the ToF. The time at which muons pass 
 through the apparatus can be measured with a resolution of 60\,ps.
 
 \subsection{Operation of the Equipment}
@@ -121,46 +135,106 @@ beta-beating in the upstream spectrometer solenoid are listed in table
 \ref{tab:magnet_parameters}. A  model of the magnetic field in this 
 configuration is shown in fig. \ref{fig:field}.
 
-The transfer line settings were varied 
-to mimic different beam conditions. Results from four transfer line 
-configurations are reported, with the accumulated muon sample having nominal 
-emittances of 3 mm, 4 mm, 6 mm  and 10 mm at momenta around 140 MeV/c in the 
-upstream spectrometer solenoid. These configurations are denoted 
-`3-140', `4-140', `6-140' and `10-140' respectively.
+The MICE Muon Beam line settings were varied to mimic different beam conditions. 
+Results from four transfer line configurations are reported, with the 
+accumulated muon sample having nominal emittances of 3 mm, 4 mm, 6 mm  and 10 mm 
+at momenta around 140 MeV/c in the upstream spectrometer solenoid. These 
+configurations are `3-140+M3-Test4`, `4-140+M3-Test1`, `6-140+M3-Test2` and `10-140+M3-Test4`
+henceforth denoted `3-140', `4-140', `6-140' and `10-140' respectively. The 
+corresponding run numbers and time during which the datasets were taken are 
+listed in table \ref{tab:run_list}.
 
 \begin{table}
 \centering
-\caption{Magnet parameters and other information for 2017-02 7. The cooling channel was powered in 
-flip mode, meaning that SSU and the upstream coil in FC had positive polarity 
-while the downstream coil in FC and SSD had negative polarity.
+\caption{Magnet parameters and other information for 2017-02 7. The cooling 
+channel was powered in flip mode, meaning that SSU and the upstream coil in FC 
+had positive polarity while the downstream coil in FC and SSD had negative 
+polarity.
 \label{tab:magnet_parameters}}
-
 \begin{tabular}{|l|c|}
 \hline
-Setting                       & 2017-02 7    \\
+Setting                        & 2017-02 7    \\
 \hline
-Full absorber runs            & 9946 to 9972 \\
-Full Start time               & 12/10/2017 11:59  \\
-Full End time                 & 14/10/2017 12:20  \\
-Empty absorber runs           & 10014 to 10077 \\
-Empty Start time              & 18/10/2017 14:34  \\
-Empty End time                & 23/10/2017 09:28  \\
-Nominal FC $\beta_\perp$ [mm] & \textcolor{red}{WHAT BETA FUNCTION?}  \\
-Nominal momentum [MeV/c]      & 140          \\
+$\beta_\perp$ at absorber [mm] & 660          \\
+Nominal momentum [MeV/c]       & 140          \\
 \hline
-SSU Center Coil [A]           & 205.7        \\
-SSU Match Coil2 [A]           & 168.25       \\
-SSU Match Coil1 [A]           & 191.0        \\
+SSU Center Coil [A]            & 205.7        \\
+SSU Match Coil2 [A]            & 168.25       \\
+SSU Match Coil1 [A]            & 191.0        \\
 \hline
-FC Coil [A]                   & 129.24       \\
+FC Coil [A]                    & 129.24       \\
 \hline
-SSD Match Coil2 [A]           & 195.72       \\
-SSD Center Coil [A]           & 144.0        \\
+SSD Match Coil2 [A]            & 195.72       \\
+SSD Center Coil [A]            & 144.0        \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}
+\centering
+\caption{List of datasets for the 2017-02 7 cooling channel
+configuration, together with the beginning and end time of the data sets. Runs in bold
+have been included in the analysis; the others may be included in the future.
+\label{tab:run_list}}
+\begin{tabular}{|l|cccc|}
+\hline
+                  & Full absorber & Empty absorber & No absorber & Lithium Hydride \\
+\hline
+3-140+M3-Test4    & \topmattersplitcell{9947 9956 \\9961 {\bf9971}}
+                  & \topmattersplitcell{10019 10025 10031 \\10038 10044 10049 \\10054 10055 10056 \\10057 10058 10059 \\10060 10061 10062 \\ {\bf10069} 10075}
+                  & {\bf10444} 10448 10458 
+                  & 10478 {\bf10483} 10488 \\
+\hline
+4-140+M3-Test1    & \topmattersplitcell{9948 9950 \\9958 {\bf9962}} 
+                  & \topmattersplitcell{10022 10028 10034 \\ 10040 10047 \\ {\bf10064} 10071} 
+                  & \topmattersplitcell{{\bf10445} 10449 \\10453 10461} & \topmattersplitcell{10480 {\bf10484} \\10489}  \\
+\hline
+6-140+M3-Test2    & \topmattersplitcell{9949 9959 \\9960 9963 \\ {\bf9966} 9972 \\9976} 
+                  & \topmattersplitcell{10023 10029 10036 \\ 10042 {\bf10051} 10066 \\ 10067 10073} 
+                  & \topmattersplitcell{ {\bf10446} 10450 \\10454 10459 \\10460 10463} & 10481 {\bf10485} 10487 \\
+\hline
+10-140+M3-Test4   & \topmattersplitcell{9953 9964 \\9967 9969 \\ {\bf9970} } 
+                  & \topmattersplitcell{10024 10026 10030 \\ 10035 10037 10041 \\ 10043 10048 {\bf10052} \\10053 10065 10068 \\10072 10074 10077} 
+                  & \topmattersplitcell{{\bf10447} 10451 \\10452 10455} 
+                  & \topmattersplitcell{10482 {\bf10486}\\ 10490} \\
+\hline
+Start of first run& 12/10/2017 12:10 & 20/10/2017 18:18 & 06/12/2017 19:54 & 11/12/2017 18:02 \\
+End of last run   & 15/10/2017 10:52 & 23/10/2017 09:28 & 08/12/2017 09:28 & 12/12/2017 11:59 \\
 \hline
 \end{tabular}
 \end{table}
 
 \subsection{Simulation}
-The cooling channel was modelled using various codes. Simulated particles based on a representative model of the pion yield from the target were transported through to the upstream edge of TOF1 using G4Beamline \cite{g4beamline}. Downstream of this region, MAUS \cite{maus} was used to model particle transport and the response of the MICE detectors to the incoming beam.
+The cooling channel was modelled using various codes. Simulated particles based 
+on a representative model of the pion yield from the target were transported 
+through to the downstream edge of D2 using G4Beamline \cite{g4beamline}. 
+Downstream of this region, MAUS \cite{maus} was used to model particle transport 
+and the response of the MICE detectors to the incoming beam.
 
+Some issues exist in the simulation, some of which have been eliminated by 
+artificially tuning the simulated experiment:
+\begin{itemize}
+\item The momentum of the incoming beam has approximately 4 $\%$ discrepancy between
+data and simulation. This has been tuned out of the incoming beam distributions
+by modifying the simulated dipole field so that the field is about 4 $\%$ higher 
+than suggested by measurements with a hall probe.
+\item The ToF reconstruction of the simulation shows a mean residual of order 100 ps.
+\item The modelled tracker density has been tuned so that the simulated $\chi^2/n_{dof}$ 
+distributions are
+consistent with data. The density was increased from the expected 1 g/cm$^2$ to 
+2 g/cm$^2$.
+\item The simulated extrapolated radial distribution of particles at the 
+diffuser does not match the measured extrapolated distribution of particles 
+(discussed below).
+\end{itemize}
 
+\subsection{Demonstration of Ionization Cooling}
+This note explores the details of MICE. Because it is the first analysis to use the
+full MICE system, it is necessary to validate the subsystems. To this end,
+\begin{itemize}
+\item{Section 2:} describes the sample selection used in the rest of the analysis.
+\item{Section 3:} describes steps taken to validate the detector equipment for
+events within the sample outlined previously
+\item{Section 4:} describes steps taken to validate the cooling channel
+\item{Section 5:} explains the cooling measurement
+\end{itemize}

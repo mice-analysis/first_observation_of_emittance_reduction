@@ -1,0 +1,25 @@
+
+\newcommand{\splitcell}[2][c]{%
+\begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+
+
+\begin{landscape}
+\begin{table}
+\centering
+\caption{The upstream truth simulated sample is listed. \label{tab:systematics_mc_cuts_summary_3_0}}
+\begin{tabular}[pos]{l|cccc}
+                                                   & \splitcell{\\Simulated\\2017-2.7\\3-140\\lH2\\empty\\Systematics\\tku base\\} & \splitcell{\\Simulated\\2017-2.7\\4-140\\lH2\\empty\\Systematics\\tku base\\} & \splitcell{\\Simulated\\2017-2.7\\6-140\\lH2\\empty\\Systematics\\tku base\\} & \splitcell{\\Simulated\\2017-2.7\\10-140\\lH2\\empty\\Systematics\\tku base\\} \\
+\hline                                            
+Upstream MC True Sample                            &  717106  &  704292  &  699565  &  648924  \\
+\hline                                            
+Muon in all TKD stations                           &  669924  &  669547  &  646052  &  513525  \\
+TKD true fiducial volume                           &  660024  &  653147  &  605786  &  446155  \\
+TKD true momentum                                  &  659526  &  652419  &  604340  &  442888  \\
+\hline                                            
+Downstream MC True Sample                          &  659526  &  652419  &  604340  &  442888  \\
+\hline                                            
+
+\end{tabular}
+\end{table}
+\end{landscape}
+

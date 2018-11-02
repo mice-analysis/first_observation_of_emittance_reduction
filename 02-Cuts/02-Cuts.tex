@@ -1,10 +1,10 @@
 \section{Sample Selection}
 \label{Sect:Cuts-1}
 
-\textcolor{red}{Update for revised cuts e.g. extrapolation cuts and global recon. List sample sizes.}
+The selection of data from the reconstructed sample is detailed below.
 
 \subsection{Particle events}
-The MICE data acquisition system was set to trigger if TOF1 received 
+The MICE data acquisition system was set to trigger if ToF1 received 
 simultaneous hits in a given slab. The trigger enables readout of the 
 diagnostics during a short trigger window. All data acquired during this period 
 is associated together and known as a particle event. 
@@ -20,187 +20,173 @@ Particle events are selected for analysis according to a number of different
 criteria. Two samples are considered: the upstream sample is selected based on 
 criteria in the upstream detector system only; the downstream sample is 
 selected from the upstream sample, based on additional criteria in the 
-downstream detector system. Because the upstream sample is selected based on
-measurements in the upstream detector system, the upstream sample is 
-independent of any stochastic processes occurring in the absorber.
+downstream detector system.
 
-The sample selection criteria are detailed in Table \ref{tab:sample_selection}
-together with the number of events surviving each cut. The criteria are
-described in detail below.
+The number of events surviving each sample selection criterion are listed for data in 
+Tables \ref{tab:data_cuts_summary_0_0}, \ref{tab:data_cuts_summary_0_1}, 
+\ref{tab:data_cuts_summary_1_0} and \ref{tab:data_cuts_summary_1_1}. The number
+of surviving events are listed for simulation in Tables \ref{tab:mc_cuts_summary_0_0}, 
+\ref{tab:mc_cuts_summary_0_1}, \ref{tab:mc_cuts_summary_1_0} and 
+\ref{tab:mc_cuts_summary_1_1}. The criteria are
+described in detail below. In the tables criteria are listed 
+sequentially, in the order that the selection was made. The number of events 
+surviving the selection and all preceding selections in the table is listed.
 
-\include{02-Cuts/data_cuts_summary}
+\include{02-Cuts/data_cuts_summary_0}
+\let\splitcell\undefined
+\include{02-Cuts/data_cuts_summary_1}
+\let\splitcell\undefined
+\include{02-Cuts/mc_cuts_summary_0}
+\let\splitcell\undefined
+\include{02-Cuts/mc_cuts_summary_1}
+\let\splitcell\undefined
+
 
 \subsection{Upstream Sample}
 Cuts applied to the upstream sample are described below.
 
 \begin{itemize}
-\item{One TOF1 Space Point:} Events have exactly one space point reconstructed in
-TOF1.
-\item{One TOF0 Space Point:} Events have exactly one space point reconstructed in
-TOF0.
-\item{One TKU Track:} Events have exactly one track reconstructed in TKU, with 
-finite position and momentum and associated error matrices.
+\item{One ToF1 Space Point:} Events have exactly one space point reconstructed in
+ToF1. The number of space points per event observed in ToF1 is shown in fig. \ref{fig:tof1_n_sp}.
+\item{One ToF0 Space Point:} Events have exactly one space point reconstructed in
+ToF0. The number of space points per event observed in ToF1 is shown in fig. \ref{fig:tof0_n_sp}.
+\item{One TKU Track:} Events have exactly one track reconstructed in TKU. The 
+number of tracks observed in TKU is shown in fig. \ref{fig:tku_n_tk}.
 \item{TKU $\chi^2$ per degree of freedom:} The reconstructed $\chi^2$ per degree of freedom in TKU is 
-required to be less than 10. The $\chi^2$ per degree of freedom of events in 
+required to be less than 4. The $\chi^2$ per degree of freedom of events in 
 each sample is shown in fig. \ref{fig:tku_chi2}.
 \item{TKU fiducial cut:} Events are required to have a maximum radial excursion 
-in TKU less than 150 mm. The maximum radial excursion of the track is estimated
-assuming a helical trajectory between tracker stations. The maximum radial
-excursion of events in each sample is shown in fig. \ref{fig:max_r}.
-\item{TKU Momentum:} Events are required to have momentum reconstructed by TKU 
-between 135 and 145 MeV/c. The momentum of events in each sample is shown in 
-fig. \ref{fig:tku_mom}.
-\textcolor{red}{Discuss low momentum bulge?}
-\item{TOF01 Time:} Pions and electrons in the momentum selection described above
-have a quite different time-of-flight between TOF0 and TOF1 to muons. Events are 
-required to have time-of-flight between TOF0 and TOF1 consistent with a muon in
+from the axis in TKU less than 150 mm. The maximum radial excursion of the track 
+is estimated assuming a helical trajectory between tracker stations. The maximum 
+radial excursion of events in each sample is shown in fig. \ref{fig:tku_max_r}.
+\item{ToF01 Time:} Pions and electrons in the momentum selection described above
+have a quite different time-of-flight between ToF0 and ToF1 to muons. Events are 
+required to have time-of-flight between ToF0 and ToF1 consistent with a muon in
 order to reject this background. The time-of-flight of events in each sample is 
 shown in fig. \ref{fig:tof01}. The velocity of particles upstream of the diffuser
 is faster for thicker diffuser settings, in order to yield a muon sample with
 momentum peaked around 140 MeV/c in TKU. In order to correctly reject impurities,
-the TOF01 cut is different for different beamline settings, as listed in table 
+the ToF01 cut is different for different beamline settings, as listed in table 
 \ref{tab:tof01_cut}
+\item{TKU Momentum:} Events are required to have momentum reconstructed by TKU 
+between 135 and 145 MeV/c. The momentum of events in each sample is shown in 
+fig. \ref{fig:tku_mom}.
+%\item{Extrapolated $t_{ToF0}$ - Reconstructed $t_{ToF0}$ ($\delta t$):} The 
+%measured time at ToF0 is compared with the time-of-flight expected by 
+%extrapolating tracks from 
+%TKU to ToF0, assuming a muon hypothesis. Those trajectories with 
+%$-1.0 > \delta t > 1.5 ns$  are rejected from the analysis. The distribution of
+%$\delta t_{01}$ is shown in fig. \ref{fig:delta_tof01}
+\item{Successful extrapolation to ToF0:} Those events that are not successfully
+extrpolated from TKU to ToF0 are rejected.
+\item{Diffuser aperture cut:} Those events that have radius greater than 100 mm
+at either the upstream or downstream face of the diffuser are rejected. The 
+distribution of extrapolated radii are shown in fig. \ref{fig:diffuser_us} and
+fig. \ref{fig:diffuser_ds} for upstream and downstream faces of the diffuser 
+respectively.
 \end{itemize}
 
 \begin{table}
-\caption{Upper and lower bound of TOF cuts for different beamline settings.
+\caption{Upper and lower bound of ToF cuts for different beamline settings.
 \label{tab:tof01_cut}}
 \centering
 \begin{tabular}[pos]{l|rr}
 Beamline & Lower       & Upper \\
          & Bound [ns]  & Bound [ns] \\
 \hline
-3-140    & 27.0          & 32.0 \\
-6-140    & 27.0          & 31.0 \\
-10-140   & 27.0          & 30.0 \\
+3-140    & 1.5          & 6.5 \\
+4-140    & 1.5          & 6.0 \\
+6-140    & 1.5          & 5.5 \\
+10-140   & 1.5          & 4.5 \\
 \end{tabular}
 \end{table}
 
 \begin{figure}[!tbh]
     \centering
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_3-140_lH2_full/tof_tof1_n_sp_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_3-140_lH2_empty/tof_tof1_n_sp_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_6-140_lH2_full/tof_tof1_n_sp_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_6-140_lH2_empty/tof_tof1_n_sp_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_10-140_lH2_full/tof_tof1_n_sp_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_10-140_lH2_empty/tof_tof1_n_sp_us_cut.pdf}
-    \caption{Number TOF1 space points.
-\label{fig:n_tof1_sp}}
+    \topmatterallplots{02-Cuts}{compare_cuts}{tof_tof1_n_sp_9_0}
+    {The number of ToF1 space points for events that are accepted by every cut 
+     except the requirement that there is 1 ToF1 space point.\label{fig:tof1_n_sp}}
 \end{figure}
 
 \begin{figure}[!tbh]
     \centering
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_3-140_lH2_full/tof_tof0_n_sp_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_3-140_lH2_empty/tof_tof0_n_sp_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_6-140_lH2_full/tof_tof0_n_sp_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_6-140_lH2_empty/tof_tof0_n_sp_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_10-140_lH2_full/tof_tof0_n_sp_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_10-140_lH2_empty/tof_tof0_n_sp_us_cut.pdf}
-    \caption{Number TOF0 space points.
-\label{fig:n_tof0_sp}}
+    \topmatterallplots{02-Cuts}{compare_cuts}{tof_tof0_n_sp_9_0}
+    {The number of ToF0 space points for events that are accepted by every cut 
+      except the requirement that there is 1 ToF0 space point.\label{fig:tof0_n_sp}}
 \end{figure}
 
 \begin{figure}[!tbh]
     \centering
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_3-140_lH2_full/tku_n_tracks_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_3-140_lH2_empty/tku_n_tracks_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_6-140_lH2_full/tku_n_tracks_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_6-140_lH2_empty/tku_n_tracks_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_10-140_lH2_full/tku_n_tracks_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_10-140_lH2_empty/tku_n_tracks_us_cut.pdf}
-    \caption{N tracks. \label{fig:n_tof0_sp}}
+    \topmatterallplots{02-Cuts}{compare_cuts}{tku_n_tracks_8_0}
+    {The number of tracks in TKU for events that are accepted by every upstream 
+     cut except the requirement that there is 1 TKU track.\label{fig:tku_n_tk}}
 \end{figure}
 
 \begin{figure}[!tbh]
     \centering
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_3-140_lH2_full/tku_chi2_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_3-140_lH2_empty/tku_chi2_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_6-140_lH2_full/tku_chi2_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_6-140_lH2_empty/tku_chi2_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_10-140_lH2_full/tku_chi2_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_10-140_lH2_empty/tku_chi2_us_cut.pdf}
-    \caption{$\chi^2$ per degree of freedom distribution in TKU for 3-140 beam (top), 6-140 beam (middle) and 10-140 beam (bottom).
-    The left hand column shows data with full absorber; the right hand column shows data with empty absorber.
-    The black line shows all events; red shows events in the upstream sample; green shows events in the downstream sample.
-    \label{fig:tku_chi2}}
+    \topmatterallplots{02-Cuts}{compare_cuts}{tku_chi2_9_0}
+    {$\chi^2$ per degree of freedom distribution in TKU for events that are 
+    accepted by every upstream cut except the requirement on TKU $\chi^2$ per 
+    degree of freedom.\label{fig:tku_chi2}}
 \end{figure}
 
 \begin{figure}[!tbh]
     \centering
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_3-140_lH2_full/tku_max_r_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_3-140_lH2_empty/tku_max_r_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_6-140_lH2_full/tku_max_r_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_6-140_lH2_empty/tku_max_r_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_10-140_lH2_full/tku_max_r_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_10-140_lH2_empty/tku_max_r_us_cut.pdf}
-    \caption{Maximum radius.
-\label{fig:tku_max_r}}
+    \topmatterallplots{02-Cuts}{compare_cuts}{tku_max_r_9_0}
+    {Maximum radius in TKU for events that are accepted by every cut except the 
+     maximum radius requirement.\label{fig:tku_max_r}}
+\end{figure}
+
+%\begin{figure}[!tbh]
+%    \centering
+%    \topmatterallplots{02-Cuts}{compare_cuts}{tof_delta_tof01_9_0}
+%    {Discrepancy between the extrapolated time at ToF0 and the measured time at 
+%    ToF0 ($\delta t_{01}$) for events that are accepted by every upstream cut 
+%    except the requirement on $\delta t_{01}$. \textcolor{red}{BUG: bumps?}\label{fig:delta_tof01}}
+%\end{figure}
+
+\begin{figure}[!tbh]
+    \centering
+    \topmatterallplots{02-Cuts}{compare_cuts}{tof_tof01_9_0}
+    {Time-of-flight measured between ToF0 and ToF1 for events that are accepted 
+     by every upstream cut except for the time-of-flight cuts.\label{fig:tof01}}
 \end{figure}
 
 \begin{figure}[!tbh]
     \centering
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_3-140_lH2_full/tof_delta_tof01_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_3-140_lH2_empty/tof_delta_tof01_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_6-140_lH2_full/tof_delta_tof01_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_6-140_lH2_empty/tof_delta_tof01_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_10-140_lH2_full/tof_delta_tof01_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_10-140_lH2_empty/tof_delta_tof01_us_cut.pdf}
-    \caption{delta tof01.
-\label{fig:delta_tof01}}
+    \topmatterallplots{02-Cuts}{compare_cuts}{tku_p_9_0}
+    {Momentum measured by TKU for events that are accepted by every 
+     upstream cut except for the TKU momentum cut. \label{fig:tku_mom}}
 \end{figure}
 
 \begin{figure}[!tbh]
     \centering
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_3-140_lH2_full/tof_tof01_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_3-140_lH2_empty/tof_tof01_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_6-140_lH2_full/tof_tof01_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_6-140_lH2_empty/tof_tof01_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_10-140_lH2_full/tof_tof01_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_10-140_lH2_empty/tof_tof01_us_cut.pdf}
-    \caption{Time-of-flight measured between TOF0 and TOF1 for 3-140 beam (top), 6-140 beam (middle) and 10-140 beam (bottom).
-    The left hand column shows data with full absorber; the right hand column shows data with empty absorber.
-    The black line shows all events; red shows events in the upstream sample; green shows events in the downstream sample.
-\label{fig:tof01}}
+    \topmatterallplots{02-Cuts}{compare_cuts}{global_through_virtual_diffuser_us_r_9_0}
+    {Extrapolated radius of tracks at the upstream face of the diffuser for 
+     events that are accepted by every upstream cut except for the diffuser 
+     radius cut. \textcolor{red}{BUG: 10-140 MC issue.} \label{fig:diffuser_us}}
 \end{figure}
 
 \begin{figure}[!tbh]
     \centering
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_3-140_lH2_full/tku_p_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_3-140_lH2_empty/tku_p_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_6-140_lH2_full/tku_p_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_6-140_lH2_empty/tku_p_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_10-140_lH2_full/tku_p_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_10-140_lH2_empty/tku_p_us_cut.pdf}
-    \caption{Momentum measured by TKU for 3-140 beam (top), 6-140 beam (middle) and 10-140 beam (bottom).
-    The left hand column shows data with full absorber; the right hand column shows data with empty absorber.
-    The black line shows all events; red shows events in the upstream sample; green shows events in the downstream sample.
-\label{fig:tku_mom}}
-\end{figure}
-
-\begin{figure}[!tbh]
-    \centering
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_3-140_lH2_full/global_through_virtual_diffuser_us_r_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_3-140_lH2_empty/global_through_virtual_diffuser_us_r_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_6-140_lH2_full/global_through_virtual_diffuser_us_r_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_6-140_lH2_empty/global_through_virtual_diffuser_us_r_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_10-140_lH2_full/global_through_virtual_diffuser_us_r_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_10-140_lH2_empty/global_through_virtual_diffuser_us_r_us_cut.pdf}
-    \caption{Diffuser cut (us) \label{fig:diffuser_us}}
-\end{figure}
-
-\begin{figure}[!tbh]
-    \centering
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_3-140_lH2_full/global_through_virtual_diffuser_ds_r_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_3-140_lH2_empty/global_through_virtual_diffuser_ds_r_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_6-140_lH2_full/global_through_virtual_diffuser_ds_r_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_6-140_lH2_empty/global_through_virtual_diffuser_ds_r_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_10-140_lH2_full/global_through_virtual_diffuser_ds_r_us_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_10-140_lH2_empty/global_through_virtual_diffuser_ds_r_us_cut.pdf}
-    \caption{Diffuser cut (ds).
- \label{fig:diffuser_ds}}
+    \topmatterallplots{02-Cuts}{compare_cuts}{global_through_virtual_diffuser_ds_r_9_0}
+   {Extrapolated radius of tracks at the upstream face of the diffuser for 
+    events that are accepted by every upstream cut except for the diffuser 
+    radius cut. \textcolor{red}{BUG: 10-140 MC issue.} \label{fig:diffuser_ds}}
 \end{figure}
 
 Events which do not meet these criteria are not considered for analysis at all.
+
+\subsubsection{Diffuser Geometry}
+
+The anomaly between MC and data in diffuser radius is noted in 
+fig. \ref{fig:diffuser_us} and fig. \ref{fig:diffuser_ds}. The physical layout of the 
+diffusers and support structure has been studied in a reasonable amount of detail and checked 
+to be consistent with the geometry implemented in  MAUS. The discrepancy still 
+exists. It is noted that the discrepancy is in the region outside the upstream
+sample cut.
+
+\clearpage
 
 \subsection{Downstream Sample}
 Cuts applied to the downstream sample are described below.
@@ -208,70 +194,52 @@ Cuts applied to the downstream sample are described below.
 \begin{itemize}
 \item{In Upstream Sample:} Events are required to be in the upstream sample to
 be considered in the downstream sample.
-\item{One TKD Track:} Events have exactly one track reconstructed in TKD.
-\item{TKD Momentum:} Events are required to have reconstructed momentum between 
-100 and 200  MeV/c. The momentum as reconstructed by TKD of events in each 
-sample is shown in fig. \ref{fig:tkd_mom}
+\item{One TKD Track:} Events have exactly one track reconstructed in TKD. The 
+number of tracks in TKD for each event is shown in fig. \ref{fig:tkd_n_tracks}.
 \item{TKD $\chi^2$ per degree of freedom:} The reconstructed $\chi^2$ per degree of freedom in TKD is 
-required to be less than 10. The $\chi^2$ per degree of freedom of events in 
-each sample in TKD is shown in fig. \ref{fig:tku_chi2}.
+required to be less than 4. The $\chi^2$ per degree of freedom of events in 
+each sample in TKD is shown in fig. \ref{fig:tkd_chi2}.
+\item{TKD Fiducial Volume:} Events are required to have a maximum radial excursion 
+from the axis in TKD less than 150 mm. The maximum radial excursion of the track 
+is estimated assuming a helical trajectory between tracker stations. The maximum 
+radial excursion of events in each sample is shown in fig. \ref{fig:tkd_max_r}.
+\item{TKD Momentum:} Events are required to have reconstructed momentum between 
+90 and 170  MeV/c. The momentum as reconstructed by TKD of events in each 
+sample is shown in fig. \ref{fig:tkd_mom}
 \end{itemize}
 
 
 \begin{figure}[!tbh]
     \centering
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_3-140_lH2_full/tkd_n_tracks_ds_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_3-140_lH2_empty/tkd_n_tracks_ds_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_6-140_lH2_full/tkd_n_tracks_ds_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_6-140_lH2_empty/tkd_n_tracks_ds_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_10-140_lH2_full/tkd_n_tracks_ds_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_10-140_lH2_empty/tkd_n_tracks_ds_cut.pdf}
-    \caption{The number of tracks measured in TKD \textcolor{red}{CHECK - is this really right? Where are events with no tracks recorded}.
-\label{fig:tkd_n_tracks}}
+    \topmatterallplots{02-Cuts}{compare_cuts}{tkd_n_tracks_13_0}
+    {The number of tracks measured in TKD for events that are accepted by every cut 
+     except the requirement that there is 1 TKD track. \label{fig:tkd_n_tracks}}
 \end{figure}
 
 \begin{figure}[!tbh]
     \centering
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_3-140_lH2_full/tkd_chi2_ds_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_3-140_lH2_empty/tkd_chi2_ds_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_6-140_lH2_full/tkd_chi2_ds_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_6-140_lH2_empty/tkd_chi2_ds_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_10-140_lH2_full/tkd_chi2_ds_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_10-140_lH2_empty/tkd_chi2_ds_cut.pdf}
-    \caption{$\chi^2$ distribution in TKD for 3-140 beam (top), 6-140 beam (middle) and 10-140 beam (bottom).
-    The left hand column shows data with full absorber; the right hand column shows data with empty absorber.
-    The black line shows all events; red shows events in the upstream sample; green shows events in the downstream sample.
-\label{fig:tkd_chi2}}
+    \topmatterallplots{02-Cuts}{compare_cuts}{tkd_chi2_13_0}
+    {$\chi^2$ distribution in TKD for events that are accepted by every cut 
+     except the requirement on $\chi^2$. \label{fig:tkd_chi2}}
 \end{figure}
 
 \begin{figure}[!tbh]
     \centering
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_3-140_lH2_full/tkd_max_r_ds_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_3-140_lH2_empty/tkd_max_r_ds_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_6-140_lH2_full/tkd_max_r_ds_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_6-140_lH2_empty/tkd_max_r_ds_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_10-140_lH2_full/tkd_max_r_ds_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_10-140_lH2_empty/tkd_max_r_ds_cut.pdf}
-    \caption{Max r  \textcolor{red}{TODO - calculate the track radius between stations, as well as at each station}.
-\label{fig:tkd_max_r}}
+    \topmatterallplots{02-Cuts}{compare_cuts}{tkd_max_r_13_0}
+    {Maximum radius of tracks in TKD for events that are accepted by every cut 
+     except the requirement on maximum radius. \label{fig:tkd_max_r}}
 \end{figure}
 
 \begin{figure}[!tbh]
     \centering
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_3-140_lH2_full/tkd_p_ds_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_3-140_lH2_empty/tkd_p_ds_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_6-140_lH2_full/tkd_p_ds_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_6-140_lH2_empty/tkd_p_ds_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_10-140_lH2_full/tkd_p_ds_cut.pdf}
-    \includegraphics*[width=0.45\textwidth]{02-Cuts/Figures/2017-2.7_10-140_lH2_empty/tkd_p_ds_cut.pdf}
-    \caption{TKD momentum.
-\label{fig:tkd_mom}}
+    \topmatterallplots{02-Cuts}{compare_cuts}{tkd_p_13_0}{Momentum in TKD,
+    for events that are accepted by every downstream cut 
+     except the TKD momentum requirement track. \label{fig:tkd_mom}}
 \end{figure}
-
 
 Events which do not meet these downstream sample criteria are not considered
-for analysis. They may either have collided with the cooling channel aperture 
-and been lost (scraping), or 
+for analysis in the downstream region. They may either have collided with the 
+cooling channel aperture and been lost (scraping), or 
 they may have been not observed by the detectors (inefficiency). Systematic 
-correction and uncertainty due to detector inefficiency is discussed in Section 
-\cite{sec:inefficiency}.
+correction due to detector inefficiency and the associated uncertainty is 
+discussed in Section \ref{sec:inefficiency}.

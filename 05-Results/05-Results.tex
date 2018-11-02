@@ -1,0 +1,461 @@
+\section{Calculation of Amplitude}
+
+Having validated the performance of the cooling channel equipment the main 
+results of the analysis are now presented. In this note, cooling is 
+characterised by the change in particle amplitude.
+
+For a beam with elliptical phase space contours, the 4D amplitude of the 
+$i^{th}$ particle is defined by
+\begin{equation}
+\label{eq:amplitude}
+A_i = \epsilon_n (\vec{u}_i - <\vec{u}>)^T \mathbf{V^{-1}} (\vec{u}_i - <\vec{u}>)
+\end{equation}
+where $\epsilon_n$ is the 4D normalised emittance, $\vec{u}$ is the 4D phase
+space vector $(x, p_x, y, p_y)$, $<\vec{u}>$ is the mean of the 4D phase space
+vector and $\mathbf{V}$ is the matrix of covariances with elements 
+$v_{ij} = <u_i u_j> - <u_i u_j>$. When $A_i$ is $1/\varepsilon_n$, eq. \ref{eq:amplitude}
+also defines the locus of points in space $u_i$ that make up the RMS hyper-ellipsoid
+corresponding to the covariance matrix $\mathbf{V}$.
+
+It can be shown that, in the linear approximation, $A_i$ is conserved 
+\cite{amplitude_conservation}. For a
+so-called `matched' beam, $A_i$ is on-average conserved even in the non-linear
+approximation, below some dynamic aperture. This is because muons follow closed 
+contours in phase space. A `matched' beam is one where the curves in phase space
+are uniformly filled, so that if a muon moves to a portion of the curve
+with a higher amplitude, another muon will move to replace it at the lower
+amplitude. On average, the amplitude does not change.
+
+Following the failure of coil M2D \cite{m2d_failure}, it was not possible to 
+find an optics that had both a matched beam in SSU and the good transmission and
+tight focussing necessary to observe cooling. In order to make the required
+measurements, the optics team sacrificed the matched beam requirement and
+accepted worse beam transmission. As a
+consequence, a modified amplitude is defined that explicitly rejects the effects
+of tails. The basic algorithm is
+
+\begin{minipage}{0.8\textwidth}
+\begin{verbatim}
+
+while events in sample {
+    calculate amplitudes
+    remove highest amplitude event
+    update covariance matrix
+}
+
+\end{verbatim}
+\end{minipage}
+
+This basic algorithm is biased; the calculation of the covariance matrix uses
+the same sample as the amplitude calculation, so the covariance matrix will be
+biased by statistical deviations in the sample. In order to avoid this bias,
+the sample is split into two - a `ref'(erence) sample, used to calculate the
+covariance matrix, and a `test' sample, used to calculate the amplitudes. The
+`ref' and `test' samples are swapped so that no statistical power is lost
+from the analysis.
+
+The algorithm is also rather CPU intensive; the amplitude
+calculation has to be repeated for every event, every time an event is removed,
+so CPU time goes as $O(N^2)$. Rather than repeat the amplitude calculation for
+every event, the data can be binned by amplitude. Events are removed per-bin; 
+the amplitudes are recalculated; and the process is repeated until no events are 
+removed from a given bin. The CPU time is observed to go as $O(log(N))$. Further 
+optimisation may be possible. 
+
+The full algorithm is outlined below.
+
+\begin{minipage}{0.8\textwidth}
+\begin{verbatim}
+
+Split data into equal size ref_sample and test_sample
+for cut_bin in reversed(ref_sample_bins) {
+    calculate covariance matrix using ref_sample
+    calculate amplitudes in ref_sample and bin
+    do until no events are removed {
+        loop over ref_sample {
+            rebin ref_sample events
+            if new bin >= cut_bin {
+                remove events from ref_sample 
+            }
+            update covariance matrix
+        } 
+    }
+    loop over test_sample {
+        rebin test_sample events using covariance matrix previously calculated
+        if new_bin >= cut_bin {
+            remove events from test_sample
+            store the amplitude of removed events
+         }
+     }
+}
+swap the ref_bin and test_bin designation and repeat
+
+\end{verbatim}
+\end{minipage}
+
+A test analysis is shown in fig. \ref{fig:test_amplitude}, together with a 2D
+section of some of the 4D RMS hyper-ellipsoids used to calculate the amplitude. 
+Because the ellipses are calculated for each subsample, there are two series 
+(rose-tinted and green-tinted). The total sample size was 10000 events.
+
+A double peaked distribution is used to illustrate the resolving power of the 
+technique. As the centre of the beam is approached, the ellipse calculation 
+successfully centres on the brighter peak. This yields a double-peaked amplitude 
+distribution.
+
+\begin{figure}[!tbh]
+    \centering
+    \includegraphics*[width=\textwidth]{05-Results/Figures/TestAmplitudeBinned.pdf}
+    \caption{Test amplitude distribution: double peaked distribution with
+    ellipses used for calculation of $\mathbf{V}$ superimposed (left); and
+    calculated amplitude distribution (right).\label{fig:test_amplitude}}
+\end{figure}
+
+\subsection{Effect of Detector Performance}
+
+The resolution, inefficiency and impurity of the detectors will lead to 
+inaccuracies in the measured amplitude distribution. Tracker resolution leads to 
+movement of events from 
+one bin to another due to changes in the measured phase space variables from the
+actual position or momentum of the particle. Impurity and 
+inefficiency leads to an artificial enhancement or depletion of a particular region
+of phase space, which is assumed to deplete each bin without causing any bin
+migrations.
+
+\subsubsection{Simulation of Detector Effects}
+The detector simulation has been used to estimate the magnitude of these effects 
+and make a correction. A hybrid simulation was devised in order to provide a sufficiently
+large sample of events that statistical fluctuations in the sample did not
+dominate over the relatively small effect of bin migrations due to the detectors.
+The upstream data sample, taken at TKU station 5, was smeared using a KDE routine 
+\cite{kde} and then the smeared distribution was sampled in order to provide a 
+large number of events (approximately $10^6$ muons). All events were assumed to be 
+muons in station 5, which is consistent with the simulation and data. This 
+sample was tracked from TKU through to TKD.
+
+Several subsamples were drawn from these muons. The upstream reconstructed 
+sample had the following requirements:
+\begin{itemize}
+\item exactly one TKU track;
+\item TKU $\chi^2$ per degree of freedom less than 4;
+\item estimated radial excursion of the reconstructed track from the beam axis 
+in TKU less than 150 mm; and
+\item TKU momentum between 135 and 145 MeV/c at the reference plane.
+\end{itemize}
+The downstream reconstructed sample had the following requirements:
+\begin{itemize}
+\item in the upstream reconstructed sample;
+\item exactly one TKD track;
+\item TKD $\chi^2$ per degree of freedom less than 4;
+\item estimated radial excursion of the reconstructed track from the beam axis 
+in TKD less than 150 mm; and
+\item TKD momentum between 90 and 170 MeV/c at the reference plane.
+\end{itemize}
+
+In order to estimate inefficiency and purity, `truth' samples were considered,
+corresponding to the events that should have been reconstructed. The upstream 
+truth sample had the following requirements:
+\begin{itemize}
+\item in the upstream reconstructed sample;
+\item MC truth muon in all 5 TKU stations; and
+\item estimated radial excursion of the truth track from the beam axis in TKU 
+less than 150 mm; and
+\end{itemize}
+The downstream truth sample had the following requirements:
+\begin{itemize}
+\item in the upstream truth sample;
+\item MC truth muon in all 5 TKD stations;
+\item estimated radial excursion of the truth track from the beam axis in TKD 
+less than 150 mm; and
+\item TKD true momentum between 90 and 170 MeV/c at the reference plane.
+\end{itemize}
+
+Each muon was recorded with its truth phase space variables $(x, p_x, y, p_y)$ 
+and, if it was reconstructed, its reconstructed phase space variables, both
+recorded at the tracker reference planes. The number of events surviving each 
+cut is listed in tables \ref{tab:systematics_mc_cuts_summary_0_0},
+\ref{tab:systematics_mc_cuts_summary_1_0},
+\ref{tab:systematics_mc_cuts_summary_2_0} and
+ \ref{tab:systematics_mc_cuts_summary_3_0}.
+
+\let\splitcell\undefined
+\include{05-Results/cuts_summary/mc/mc_cuts_summary_0}
+\let\splitcell\undefined
+\include{05-Results/cuts_summary/mc/mc_cuts_summary_1}
+\let\splitcell\undefined
+\include{05-Results/cuts_summary/mc/mc_cuts_summary_2}
+\let\splitcell\undefined
+\include{05-Results/cuts_summary/mc/mc_cuts_summary_3}
+\let\splitcell\undefined
+
+\subsubsection{Calculation of Correction}
+Several amplitude distributions were generated from these samples, with $N_i$
+events in the $i^{th}$ bin:
+\begin{itemize}
+\item $N_i^{t|t}$: number of events in the $i^{th}$ bin of the amplitude 
+$A^{t|t}$ calculated from the truth sample using truth phase space variables;
+\item $N_i^{r|t}$: number of events in the $i^{th}$ bin of the amplitude 
+$A^{r|t}$ calculated from  the reconstructed sample using truth phase space 
+variables; and
+\item $N_i^{r|r}$: number of events in the $i^{th}$ bin of the amplitude 
+$A^{r|r}$  calculated from the reconstructed sample using reconstructed phase 
+space variables.
+\end{itemize}
+Each of these distributions was calculated in both the upstream region and the 
+downstream region. A vector $\vec{E}$ and matrix $\mathbf{S}$ are defined relating 
+the number of events in each sample according to
+\begin{align}
+N_i^{r|t} &= \sum_j S_{ij} N_j^{r|r} \\
+N_i^{t|t} &=  E_{i} N_i^{r|t}
+\end{align}
+so that
+\begin{equation}
+N_i^{t|t} = E_{i} \sum_j S_{ij} N_{j}^{r|r}.
+\end{equation}
+Then
+\begin{equation}
+\label{eq:efficiency}
+E_i = \frac{N_i^{t|t}}{N_i^{r|t}}.
+\end{equation}
+$Q_{ij}$ is defined as the number of events in the $i^{th}$ bin of the 
+distribution of $A^{r|r}$ and the $j^{th}$ bin of the distribution of $A^{r|t}$.
+Then
+\begin{equation}
+\sum_j Q_{ij} = N_i^{r|t}
+\end{equation}
+so
+\begin{equation}
+S_{ij}  = \frac{Q_{ij}}{N_j^{r|r}}.
+\end{equation}
+$\mathbf{S}$ and $\vec{E}$ are useful quantities because for the same 
+RMS ellipse, they are independent of the actual number of events in
+each amplitude bin.
+
+\subsubsection{Migration Matrix Correction}
+
+The corrections have been calculated for 3-140, 4-140, 6-140 and 10-140 beams
+with no absorber. Deviations in the corrections in TKD may exist when an 
+absorber is installed due to the lower beam momentum but these are assumed to be 
+small.
+
+The full migration matrix $\mathbf{S}$ is shown in fig. 
+\ref{fig:crossing_probability_tku} for the upstream tracker and fig. 
+\ref{fig:crossing_probability_tkd} for the downstream tracker. It is noted that 
+while bin migrations are relatively common, migrations through more than one bin
+are rather rare.
+
+The probability of an event being reconstructed in the same amplitude bin as it
+was found in truth, corresponding to the diagonal elements of $\mathbf{S}$, is
+shown in fig. \ref{fig:crossing_probability_diagonal_tku} and 
+\ref{fig:crossing_probability_diagonal_tkd} for upstream and downstream detectors
+respectively. The correction is significant and becomes larger for
+higher amplitudes. There is a significant cusp at 15 mm amplitude, visible
+in all upstream and downstream samples but especially pronounced in the 10-140 
+sample.
+
+\begin{figure}[!tbh]
+    \topmattersysplot{05-Results/Figures/systematics_summary}{upstream}
+                     {crossing_probability_upstream}
+                     {Probability of TKU reconstruction in a certain amplitude 
+                      bin compared to the true amplitude bin for 3-140 (top 
+                      left); 4-140 (top right); 6-140 (bottom left) and 10-140 
+                      (bottom right) configurations.
+                      \label{fig:crossing_probability_tku}}
+\end{figure}
+
+\begin{figure}[!tbh]
+    \topmattersysplot{05-Results/Figures/systematics_summary}{downstream}
+                     {crossing_probability_downstream}
+            {Probability of TKD reconstruction in a certain amplitude bin compared 
+             to the true amplitude bin for 3-140 (top left); 4-140 (top right); 
+             6-140 (bottom left) and 10-140 (bottom right) configurations.
+             \label{fig:crossing_probability_tkd}}
+\end{figure}
+
+\begin{figure}[!tbh]
+    \topmattersysplot{05-Results/Figures/systematics_summary}{upstream}
+                     {crossing_probability_all_upstream_migration_matrix_graph}
+            {Probability of remaining in the true amplitude bin after 
+             reconstruction in TKU for 3-140 (top left); 4-140 (top right); 
+             6-140 (bottom left) and 10-140 (bottom right) configurations.
+             \label{fig:crossing_probability_diagonal_tku}}
+\end{figure}
+
+\begin{figure}[!tbh]
+    \topmattersysplot{05-Results/Figures/systematics_summary}{downstream}
+                     {crossing_probability_all_downstream_migration_matrix_graph}
+            {Probability of remaining in the true amplitude bin after 
+             reconstruction in TKD for 3-140 (top left); 4-140 (top right); 
+             6-140 (bottom left) and 10-140 (bottom right) configurations.
+             \label{fig:crossing_probability_diagonal_tkd}}
+\end{figure}
+
+\subsubsection{Inefficiency Correction}
+\label{sec:inefficiency}
+
+The inefficiency in TKU is less than $O(10^{-3})$, arising due to events that are 
+reconstructed in the TKU fiducial volume but whose true trajectory falls outside 
+the TKU fiducial volume. No correction is made in TKU.
+
+There is a notable efficiency correction in TKD as shown in 
+fig. \ref{fig:inefficiency_tkd}. The correction is large at low amplitudes, 
+where inefficiency arises as scattering can be dominant over curvature of the 
+track for tracks with low transverse momentum. There is also a large correction
+at high amplitudes, where inefficiency can arise due to deformation of the helix
+from field non-uniformity near to the end coils.
+
+\begin{figure}[!tbh]
+    \topmattersysplot{05-Results/Figures/systematics_summary}{downstream}
+                     {inefficiency_all_downstream_pdf_ratio_graph}
+            {TKD efficiency correction for 3-140 (top left); 4-140 (top right); 
+             6-140 (bottom left) and 10-140 (bottom right) configuratons.
+             \label{fig:inefficiency_tkd}}
+\end{figure}
+
+\subsection{Uncertainties}
+
+Measurement uncertainty is dominated by statistical uncertainty and uncertainty 
+in the correction. The estimation of this uncertainty is described below.
+
+\subsubsection{Statistical uncertainty}
+In this note, the change in emittance of a sample of muons is studied. 
+Statistical uncertainty in the change in emittance arises due to finite sampling 
+of the scattering and straggling distribution in the absorber. Explicitly, the
+uncertainty arising due to sampling of the input beam distribution is not
+considered in this note. There is no statistical uncertainty in the upstream 
+distribution, because it is exactly that set of events that have been selected
+for analysis.
+
+The statistical uncertainty in the downstream distribution is taken by 
+considering the number of events in the $i^{th}$ bin upstream and the $j^{th}$ bin 
+downstream,  $N^{us \cup ds}_{ij}$. The number of events is taken to follow a 
+binomial distribution  where the number of trials is taken as the number of 
+events in the $i^{th}$ bin upstream, $N^{us}_i$ and the probability of success is 
+estimated as the ratio $N^{us \cup ds}_{ij}/N^{us}_i$. The uncertainty in 
+$N^{us \cup ds}_{ij}$ is given by the width of the 
+$68 \%$ confidence interval and the uncertainty in the downstream bin 
+$N^{us}_{j}$ is given by summing uncertainties in $N^{us \, \cup \, ds}_{ij}$ over all 
+upstream bins. Summation is done by adding in quadrature.
+
+The statistical uncertainty in the cumulative distribution is found by adding in
+quadrature the error on each bin in the probability distribution that contributes
+to a given cumulative bin. The statistical error in the ratio distributions is
+found by adding in quadrature the upstream and downstream error, 
+normalised to the number of events in each bin.
+
+Only a subset of the full dataset is included in this analysis. More data can
+reduce the statistical uncertainties.
+
+\subsubsection{Correction Uncertainty}
+The correction procedure outlined above assumes perfect knowledge of the 
+detector system. In reality this is not perfectly known. In order to understand
+this uncertainty, imperfections are
+introduced into the simulation of the detector system and the resulting change
+in the correction is assigned as the uncertainty. The following imperfections
+are introduced one-by-one and their effects on the correction are studied:
+
+\begin{itemize}
+\item Displacement in the horizontal plane through 3 mm
+\item Rotation in the horizontal plane through 3 mrad
+\item Mispowering of the Centre coil by 3 $\%$
+\item Mispowering of the End1 coil by 5 $\%$
+\item Mispowering of the End2 coil by 5 $\%$
+\item Increasing the tracker glue density by 50 $\%$
+\end{itemize}
+
+The effect of each of these uncertainties on the correction coefficients is 
+shown in fig. \ref{fig:crossing_probability_systematic_tku},
+\ref{fig:crossing_probability_systematic_tkd} and 
+\ref{fig:inefficiency_systematic_tkd}.
+
+\begin{figure}[!tbh]
+    \topmattersysplot{05-Results/Figures/systematics_summary}{upstream}
+                     {crossing_probability_all_upstream_migration_matrix_multigraph}
+        {Effect on diagonal terms of the TKU $\mathbf{S}$ matrix for 3-140 (top 
+         left); 4-140 (top right); 6-140 (bottom left) and 10-140 (bottom right) 
+         configuratons. \label{fig:crossing_probability_systematic_tku}}
+\end{figure}
+
+\begin{figure}[!tbh]
+    \topmattersysplot{05-Results/Figures/systematics_summary}{downstream}
+                     {crossing_probability_all_downstream_migration_matrix_multigraph}
+        {Effect on diagonal terms of the TKD $\mathbf{S}$ matrix for 3-140 (top 
+         left); 4-140 (top right); 6-140 (bottom left) and 10-140 (bottom right) 
+         configuratons. \label{fig:crossing_probability_systematic_tkd}}
+\end{figure}
+
+\begin{figure}[!tbh]
+    \topmattersysplot{05-Results/Figures/systematics_summary}{downstream}
+                     {inefficiency_all_downstream_pdf_ratio_multigraph}
+        {Effect on the efficiency $\vec{E}$ of varying the simulation geometry
+         as compared to the reconstruction geometyr in  TKD for 3-140 (top 
+         left); 4-140 (top right); 6-140 (bottom left) and 10-140 (bottom right) 
+         configuratons. \label{fig:inefficiency_systematic_tkd}}
+\end{figure}
+
+It is noted that even with this large data set, statistical fluctuations in
+the uncertainties are significant.
+
+\clearpage
+
+\subsection{Results}
+
+The amplitude density and cumulative distributions are shown in fig. 
+\ref{fig:amplitude_pdf_reco} and \ref{fig:amplitude_cdf_reco}. The ratio of the 
+downstream and upstream density distributions is shown in fig. 
+\ref{fig:pdf_ratio}. The ratio of the downstream and upstream cumulative
+distributions is shown in fig. \ref{fig:cdf_ratio}. Where the ratio is greater
+than 1, the density has increased on passing between the trackers. If this 
+occurs in the beam core, then it indicates events have migrated from the tail of
+the beam towards the core, which is indicative of cooling.
+
+For all 3-140 settings, the number of events in the beam core is lower 
+downstream than upstream indicating significant dilution of the beam core. The 
+3-140 setting exhibits significant mismatch and this dominates the amplitude 
+evolution.
+
+For the 4-140 settings the number of events in the beam core is approximately
+the same upstream and downstream. This setting is expected to be near to the
+equilibrium emittance of both absorbers.
+
+For the 6-140 and 10-140 setting, the events traversing no absorber or with an
+empty hydrogen absorber do not exhibit a significant change in core density.
+The settings with a filled liquid hydrogen absorber or lithium hydride do 
+exhibit a change in core density indicating migration of tracks towards the beam
+core when an absorber is installed. The 10-140 setting exhibits a greater 
+increase in core density, at the expense of more loss in the tails due to 
+scraping. The onset of scraping can be seen most clearly at above 40 mm.
+
+\begin{figure}[!tbh]
+    \centering
+    \topmatterallplots{05-Results}{compare_amplitude_data}{amplitude_pdf_reco}
+    {Distribution of amplitudes. The upstream distribution is shown by orange
+    circles while the downstream distribution is shown by green triangles. Where
+    significant, statistical uncertainty is represented by bars and systematic 
+    uncertainty by hashed boxes}
+\end{figure}
+
+\begin{figure}[!tbh]
+    \centering
+    \topmatterallplots{05-Results}{compare_amplitude_data}{amplitude_cdf_reco}
+    {Cumulative amplitude distribution. The upstream distribution is shown by orange
+    circles while the downstream distribution is shown by green triangles. Where
+    significant, statistical uncertainty is represented by bars and systematic 
+    uncertainty by hashed boxes.}
+\end{figure}
+
+\begin{figure}[!tbh]
+    \centering
+    \topmatterallplots{05-Results}{compare_amplitude_both}{pdf_ratio}
+    {Ratio of amplitude density. Data is shown in black and simulation is shown in
+     red. Statistical uncertainty is represented by bars and systematic 
+     uncertainty by hashed boxes.}
+\end{figure}
+
+\begin{figure}[!tbh]
+    \centering
+    \topmatterallplots{05-Results}{compare_amplitude_both}{cdf_ratio}
+    {Ratio of amplitude cumulative distribution. Data is shown in black and 
+     simulation is shown in red. Statistical uncertainty is represented by bars 
+     and systematic uncertainty by hashed boxes.}
+\end{figure}

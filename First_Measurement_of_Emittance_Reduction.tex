@@ -14,18 +14,29 @@
 
 \parindent 10pt
 \pagestyle{plain}
+
+\input 00b-Abstract/00b-Abstract
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
 \pagenumbering{arabic}                   
 \setcounter{page}{1}
 
-\input 00b-Abstract/00b-Abstract
 \input 01-Introduction/01-Introduction
+\clearpage
 \input 02-Cuts/02-Cuts
+\clearpage
 \input 03-Detectors/03-Detectors
+\clearpage
 \input 04-Cooling-Channel/04-Cooling-Channel
-\input 05-Cuts/05-Cuts
-\input 06-Results/06-Results
-\input 07-Uncertainties/07-Uncertainties
-\input 08-Conclusions/08-Conclusions
+\clearpage
+\input 05-Results/05-Results
+\clearpage
+\input 06-Conclusions/06-Conclusions
 \graphicspath{
   {00b-Abstract/Figures/}
   {01-Introduction/Figures/}
@@ -35,7 +46,33 @@
 
 \clearpage
 \bibliographystyle{99-Styles/utphys}
-\bibliography{Concatenated-bibliography}
+\begin{thebibliography}{99} %\bibliography{Concatenated-bibliography}
+
+\bibitem{ionization_cooling} I need to do the references
+\bibitem{neutrino_factory} citation
+\bibitem{neutrino_factory_2} citation
+\bibitem{muon_collider} citation 
+\bibitem{muon_collider_2} citation
+\bibitem{mice} citation
+\bibitem{mice_step_iv} citation
+\bibitem{beamline} citation
+\bibitem{pion_contamination} citation 
+\bibitem{characterization} citation
+\bibitem{SS} citation 
+\bibitem{FC} citation
+\bibitem{tof} citation
+\bibitem{tof2} citation
+\bibitem{ckov} citation
+\bibitem{tracker_hardware} citation 
+\bibitem{tracker_software} citation
+\bibitem{g4beamline} citation. 
+\bibitem{maus} citation
+\bibitem{maus_paper} citation.
+\bibitem{amplitude_conservation} citation
+\bibitem{m2d_failure} citation
+\bibitem{kde} citation
+
+\end{thebibliography}
 
 \cleardoublepage
 \appendix

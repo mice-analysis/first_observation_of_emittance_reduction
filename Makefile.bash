@@ -1,7 +1,7 @@
 rm First_Measurement_of_Emittance_Reduction.pdf
 set -e
 pdflatex First_Measurement_of_Emittance_Reduction
-bibtex First_Measurement_of_Emittance_Reduction
+#bibtex First_Measurement_of_Emittance_Reduction
 pdflatex First_Measurement_of_Emittance_Reduction
 pdflatex First_Measurement_of_Emittance_Reduction
 okular First_Measurement_of_Emittance_Reduction.pdf
